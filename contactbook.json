@@ -1,6 +1,10 @@
 [
     {
-        "name": "Alon",
-        "tel": 3456789
+        "contact_info": [
+            {
+                "name": "gfdgdgd",
+                "tel": 43432324
+            }
+        ]
     }
 ]

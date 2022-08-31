@@ -9,4 +9,4 @@ class Contact:
         self.tel = tel
 
     def __str__(self):
-        return json.dumps({"name": self.name, "tel": self.tel})
+        return json.dumps({"contact_info":[{"name": self.name, "tel": self.tel}]})
