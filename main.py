@@ -6,7 +6,6 @@ contacts = []
 DATA_FILE = "contactbook.json"
 
 def menu():
-    load_file(DATA_FILE)
     print(Fore.RED + "Welcome to Contacts Manager v2.0.0!" + Style.RESET_ALL)
     print(Fore.LIGHTCYAN_EX + "Please enter your selection according to the menu." + Style.RESET_ALL)
     print("a - Add a contact")
@@ -18,7 +17,8 @@ def menu():
     return user_selection
 
 def main():
-    contactbook = ContactBook()
+    load_file(DATA_FILE)
+    contactbook = ContactBook(load_file(DATA_FILE))
     user_selection = ""
     while user_selection != "x":
         user_selection = menu() # As long as user did not select "x", program will always run. 
@@ -27,7 +27,7 @@ def main():
         if user_selection == "r":
             contactbook.remove_contact(contactbook.search_contact(input("Contact's Name? ")))
         if user_selection == "s": 
-            contactbook.search_contact(input("Contact's name?"))
+            contactbook.search_contact(input("Contact's name? "))
             print(Fore.GREEN + "Success!" + Style.RESET_ALL)
         if user_selection == "p":
             print(contactbook)

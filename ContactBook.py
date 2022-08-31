@@ -5,8 +5,9 @@ import json
 class ContactBook:
     contacts = []
 
-    def __init__(self):
-        pass
+    def __init__(self, existing_contacts = None):
+        self.contacts = [] if existing_contacts is None else existing_contacts
+        
 
     def add_contact(self, name = "", tel = 0):
         self.contacts.append(Contact(name, tel))
@@ -34,3 +35,4 @@ class ContactBook:
         for contact in self.contacts:
             result += contact.__str__()
         return result
+        
