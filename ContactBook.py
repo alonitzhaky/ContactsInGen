@@ -1,38 +1,30 @@
 from colorama import Fore, Style, Back
-from Contact import Contact
-import json
+from Contact import Contact, NAME_FIELD, TELEPHONE_FIELD
 
 class ContactBook:
-    contacts = []
-
     def __init__(self, existing_contacts = None):
         self.contacts = [] if existing_contacts is None else existing_contacts
-        
 
-    def add_contact(self, name = "", tel = 0):
-        self.contacts.append(Contact(name, tel))
-        print(Fore.GREEN + "Success!" + Style.RESET_ALL)
+    def add_contact(self, contact_name: str, phone_number: int):
+        self.contacts.append(Contact(contact_name, phone_number).to_dict())
+        print(Fore.GREEN + f"Success! Added - {contact_name}" + Style.RESET_ALL)
 
-    def remove_contact(self, contact_name):
-        self.contacts.remove(contact_name)
-        print(Fore.RED + "Removed.\n" + Style.RESET_ALL)
+    def remove_contact(self, contact_name: str):
+        if self.search_contact(contact_name) is not None:
+            self.contacts = list(filter(lambda contact: contact[NAME_FIELD] != contact_name, self.contacts))
+            print(Fore.RED + f"Removed - {contact_name}" + Style.RESET_ALL)
 
     def search_contact(self, contact_name):
-        for contact in self.contacts:
-            if type(contact) is Contact:
-                if contact.name == contact_name:
-                    return contact
-        return (Back.RED + "\nThere is no contact with that name." + Style.RESET_ALL + "\n")
+        contact = list(filter(lambda contact: contact[NAME_FIELD] == contact_name, self.contacts))
+
+        if not len(contact):
+            print(Back.RED + f"There is no contact with the name - [{contact_name}]" + Style.RESET_ALL + "\n")
+        else:
+            return Contact(contact[0][NAME_FIELD], contact[0][TELEPHONE_FIELD])
     
-    def make_contact_json(self):
-        result = []
-        for contact in self.contacts:
-            result.append(json.loads(contact.__str__()))
-        return result
+    def get_all_contacts(self):
+      return self.contacts
 
     def __str__(self) -> str:
-        result = ""
-        for contact in self.contacts:
-            result += contact.__str__()
-        return result
+        return ", ".join([str(Contact(contact[NAME_FIELD], contact[TELEPHONE_FIELD])) for contact in self.contacts])
         
