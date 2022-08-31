@@ -6,4 +6,4 @@ def load_file(DATA_FILE): # Loading JSON file with all information
 
 def save_file(json_list, DATA_FILE): 
     with open (DATA_FILE, "w") as file: 
-        json.dump(json_list, file, indent = 4)
+        json.dump(json_list, file)
