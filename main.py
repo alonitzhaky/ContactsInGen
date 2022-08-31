@@ -17,8 +17,12 @@ def menu():
     return user_selection
 
 def main():
+    try:
+        existing_contacts = load_file(DATA_FILE)
+    except FileNotFoundError:
+        existing_contacts = None
+    contactbook = ContactBook(existing_contacts)
     load_file(DATA_FILE)
-    contactbook = ContactBook(load_file(DATA_FILE))
     user_selection = ""
     while user_selection != "x":
         user_selection = menu() # As long as user did not select "x", program will always run. 
