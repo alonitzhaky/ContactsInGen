@@ -1,4 +1,5 @@
 from colorama import Fore, Style
+from Contact import NAME_FIELD, TELEPHONE_FIELD, Contact
 from LoadAndSave import load_file, save_file
 from ContactBook import ContactBook
 
@@ -18,11 +19,10 @@ def menu():
 
 def main():
     try:
-        existing_contacts = load_file(DATA_FILE)
+      existing_contacts = load_file(DATA_FILE)
     except FileNotFoundError:
-        existing_contacts = None
+      existing_contacts = None
     contactbook = ContactBook(existing_contacts)
-    load_file(DATA_FILE)
     user_selection = ""
     while user_selection != "x":
         user_selection = menu() # As long as user did not select "x", program will always run. 
@@ -31,14 +31,12 @@ def main():
         if user_selection == "r":
             contactbook.remove_contact(contactbook.search_contact(input("Contact's Name? ")))
         if user_selection == "s": 
-            contactbook.search_contact(input("Contact's name? "))
-            print(Fore.GREEN + "Success!" + Style.RESET_ALL)
+            print(Fore.GREEN + str(contactbook.search_contact(input("Contact's name? "))) + Style.RESET_ALL)
         if user_selection == "p":
-            print(contactbook)
-            print(Fore.GREEN + "Success!" + Style.RESET_ALL)
+            print("\n".join([str(Contact(contact[NAME_FIELD], contact[TELEPHONE_FIELD])) for contact in contactbook.get_all_contacts()]))
+        save_file(contactbook.get_all_contacts(), DATA_FILE)
     print(Fore.MAGENTA + "Thank you for using my software. Bye!")
-    save_file(contactbook.make_contact_json(), DATA_FILE)
-            
+    
 
 if __name__ == "__main__":
     main()
