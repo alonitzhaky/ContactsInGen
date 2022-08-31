@@ -32,7 +32,7 @@ def main():
         if user_selection == "p":
             print(contactbook)
             print(Fore.GREEN + "Success!" + Style.RESET_ALL)
-    print(Fore.MAGENTA + "Goodbye!")
+    print(Fore.MAGENTA + "Thank you for using my software. Bye!")
     save_file(contactbook.make_contact_json(), DATA_FILE)
             
 
